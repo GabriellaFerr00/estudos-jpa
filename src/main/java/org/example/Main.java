@@ -18,8 +18,12 @@ public class Main {
         //conexao com o banco de dados e todos os contexto de persistencia implementada
         EntityManager em = emf.createEntityManager();
 
-        //buscando uma pessoa no banco de dados
+        //entendendo o que é uma entidade monitorada
+        //só ira conseguir deletar alguma entidade se ela ja estiver sido inserida ou buscada no banco
         Pessoa p = em.find(Pessoa.class, 3);
+        em.getTransaction().begin();
+        em.remove(p);
+        em.getTransaction().commit();
 
         System.out.println(p);
         System.out.println("Feito!");
